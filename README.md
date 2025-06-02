@@ -8,7 +8,7 @@ The app is built with **Flutter**, and the C++ filters are integrated via **Dart
 
 ## DEMO
 
-[Watch the demo video](demo/demo.mp4) 
+[![Watch the demo](https://img.youtube.com/vi/mdfHy1uaFq0/0.jpg)](https://www.youtube.com/watch?v=mdfHy1uaFq0)
 
 ## Requirements
 
