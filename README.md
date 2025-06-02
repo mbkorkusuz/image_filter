@@ -72,7 +72,7 @@ flutter run
 
 #### Last Notes
 
-- Make sure you have the corresponding opencv library in your project.
+- Make sure you have the corresponding opencv libraries in your project.
 
     - For android copy the opencv library folder into source directory.
     - For ios copy the opencv2.framework folder to ios directory
