@@ -1,0 +1,11 @@
+<!-- ios/Runner/Info.plist - Bu satırları ekleyin -->
+
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Bu uygulama filtre uygulamak için fotoğraf galerisine erişim izni gerektirir.</string>
+	
+	<key>NSCameraUsageDescription</key>
+	<string>Bu uygulama fotoğraf çekmek için kamera erişim izni gerektirir.</string>
+	
+	<!-- iOS 14+ için ek permission -->
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Bu uygulama filtrelenmiş fotoğrafları galeriye kaydetmek için izin gerektirir.</string>
