@@ -241,7 +241,6 @@ Future<void> sendToPythonApi(File imageFile) async {
             body: AppWidgets.loading(text: 'Görüntü yükleniyor...'),
           );
         }
-
         return Scaffold(
           body: SafeArea(
             child: Column(

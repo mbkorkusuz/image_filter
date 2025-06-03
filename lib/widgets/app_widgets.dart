@@ -11,10 +11,8 @@ class AppWidgets {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const CircularProgressIndicator(color: AppTheme.primaryColor),
-          if (text != null) ...[
-            const SizedBox(height: 16),
-            Text(text, style: AppTextStyles.bodySecondary),
-          ],
+          const SizedBox(height: 16),
+          Text(text!, style: AppTextStyles.bodySecondary),
         ],
       ),
     );
