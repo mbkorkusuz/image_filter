@@ -29,15 +29,11 @@ class _PhotoPickerScreenState extends State<PhotoPickerScreen> {
     final imageFile = await homeProvider.selectImage();
     
     if (imageFile != null) {
-      final result = await Navigator.pushNamed(
+      await Navigator.pushNamed(
         context,
         '/display',
         arguments: imageFile,
       );
-      
-      if (result == true) {
-        homeProvider.loadSavedImages();
-      }
     }
   }
 

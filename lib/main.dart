@@ -21,7 +21,6 @@ class ImageFilterApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ImageComparisonProvider()),
       ],
       child: MaterialApp(
-        title: 'Image Filter',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           scaffoldBackgroundColor: Colors.white,

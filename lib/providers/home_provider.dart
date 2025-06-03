@@ -9,14 +9,12 @@ class GallerySavedImage {
   final String id;
   final String name;
   final DateTime date;
-  final String filterApplied;
   final String? thumbnailPath;
 
   GallerySavedImage({
     required this.id,
     required this.name,
     required this.date,
-    required this.filterApplied,
     this.thumbnailPath,
   });
 }
@@ -64,17 +62,15 @@ class HomeProvider extends ChangeNotifier {
         }
       }
       
-      for (File file in files) 
+      for (File file in files)
       {
         final fileName = file.path.split('/').last;
         final stat = await file.stat();
-        final filterName = filterMap[fileName] ?? 'Bilinmeyen';
         
         loadedImages.add(GallerySavedImage(
           id: fileName,
           name: fileName,
           date: stat.modified,
-          filterApplied: filterName,
           thumbnailPath: file.path,
         ));
       }
