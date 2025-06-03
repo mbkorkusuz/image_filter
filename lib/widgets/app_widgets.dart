@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
-import 'app_theme.dart';
-import 'app_text_styles.dart';
-import 'app_button_styles.dart';
+import '../themes/app_theme.dart';
+import '../themes/app_text_styles.dart';
+import '../themes/app_button_styles.dart';
 
 class AppWidgets {
   static Widget loading({String? text}) {

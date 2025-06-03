@@ -31,13 +31,6 @@ class AppTextStyles {
     fontFamily: AppTheme.fontFamily,
   );
   
-  // Body Text
-  static const TextStyle bodyLarge = TextStyle(
-    fontSize: 16,
-    color: AppTheme.textPrimary,
-    fontFamily: AppTheme.fontFamily,
-  );
-  
   static const TextStyle bodyMedium = TextStyle(
     fontSize: 14,
     color: AppTheme.textPrimary,
@@ -63,43 +56,9 @@ class AppTextStyles {
     fontFamily: AppTheme.fontFamily,
   );
   
-  static TextStyle bodySecondarySmall = TextStyle(
-    fontSize: 14,
-    color: AppTheme.textSecondary,
-    fontFamily: AppTheme.fontFamily,
-  );
-  
-  // Button Text
-  static const TextStyle buttonLarge = TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.w600,
-    fontFamily: AppTheme.fontFamily,
-  );
-  
   static const TextStyle buttonMedium = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w600,
-    fontFamily: AppTheme.fontFamily,
-  );
-  
-  static const TextStyle buttonSmall = TextStyle(
-    fontSize: 12,
-    fontWeight: FontWeight.w600,
-    fontFamily: AppTheme.fontFamily,
-  );
-  
-  // Special Text
-  static const TextStyle caption = TextStyle(
-    fontSize: 12,
-    fontWeight: FontWeight.w500,
-    color: AppTheme.textOnPrimary,
-    fontFamily: AppTheme.fontFamily,
-  );
-  
-  static const TextStyle overline = TextStyle(
-    fontSize: 10,
-    fontWeight: FontWeight.w600,
-    color: AppTheme.textOnPrimary,
     fontFamily: AppTheme.fontFamily,
   );
   
@@ -114,28 +73,6 @@ class AppTextStyles {
   static const TextStyle filterNameSelected = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.bold,
-    color: AppTheme.primaryColor,
-    fontFamily: AppTheme.fontFamily,
-  );
-  
-  static const TextStyle filterLabel = TextStyle(
-    fontSize: 10,
-    fontWeight: FontWeight.w600,
-    color: AppTheme.textOnPrimary,
-    fontFamily: AppTheme.fontFamily,
-  );
-  
-  // Intensity Labels
-  static TextStyle intensityLabel = TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.w600,
-    color: AppTheme.textSecondary,
-    fontFamily: AppTheme.fontFamily,
-  );
-  
-  static const TextStyle intensityValue = TextStyle(
-    fontSize: 14,
-    fontWeight: FontWeight.w500,
     color: AppTheme.primaryColor,
     fontFamily: AppTheme.fontFamily,
   );

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
+// sparkle script for simulation ai behaviour
+
 class Sparkle {
   Offset position;
   double size;

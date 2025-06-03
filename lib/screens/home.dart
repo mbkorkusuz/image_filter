@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'dart:io';
 import '../themes/app_theme.dart';
 import '../themes/app_text_styles.dart';
-import '../themes/app_widgets.dart';
+import '../widgets/app_widgets.dart';
 import '../providers/home_provider.dart';
 
 

@@ -5,7 +5,7 @@ import 'package:image_filter/widgets/filter_preview_widget.dart';
 import 'package:image_filter/widgets/image_comparison_slider.dart';
 import '../themes/app_theme.dart';
 import '../themes/app_button_styles.dart';
-import '../themes/app_widgets.dart';
+import 'app_widgets.dart';
 import '../providers/image_display_provider.dart';
 import '../animations/sparkle.dart';
 

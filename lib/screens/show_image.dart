@@ -9,7 +9,7 @@ import 'package:gal/gal.dart';
 import 'package:image_filter/services/image_processor.dart';
 import 'package:image_filter/helper/filters.dart';
 import 'package:path_provider/path_provider.dart';
-import '../themes/app_widgets.dart';
+import '../widgets/app_widgets.dart';
 import '../providers/image_display_provider.dart';
 import '../providers/filter_preview_provider.dart';
 import '../providers/image_comparison_provider.dart';
