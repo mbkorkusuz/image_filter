@@ -6,6 +6,8 @@ import '../themes/app_text_styles.dart';
 import '../themes/app_widgets.dart';
 import '../providers/home_provider.dart';
 
+
+// This is the home screen that displays previously filtered images and lets user add one to the collection.
 class PhotoPickerScreen extends StatefulWidget {
   const PhotoPickerScreen({super.key});
 

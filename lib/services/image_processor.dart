@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:image_filter/helper/filters.dart';
 import 'package:path_provider/path_provider.dart';
 
-// Isolate'e gönderilecek veri yapısı - intensity eklendi
+// data structure to be sent to isolate 
 class ImageProcessingRequest {
   final String inputPath;
   final String outputPath;
@@ -22,7 +22,7 @@ class ImageProcessingRequest {
   });
 }
 
-// Isolate'den dönecek sonuç yapısı
+// processing result from isoleate
 class ImageProcessingResult {
   final String? outputPath;
   final String? error;
@@ -40,7 +40,7 @@ class IsolateImageProcessor {
   static SendPort? _isolateSendPort;
   static bool _isIsolateReady = false;
 
-  // Isolate'i başlat
+  // initialize isolate
   static Future<void> initializeIsolate() async {
     if (_isIsolateReady) return;
     
@@ -51,12 +51,12 @@ class IsolateImageProcessor {
       receivePort.sendPort,
     );
     
-    // Isolate'den SendPort'u al
+    // take sendport from isolate
     _isolateSendPort = await receivePort.first as SendPort;
     _isIsolateReady = true;
   }
 
-  // Isolate'i temizle
+  // dispose isolate
   static void disposeIsolate() {
     _processingIsolate?.kill();
     _processingIsolate = null;
@@ -64,20 +64,20 @@ class IsolateImageProcessor {
     _isIsolateReady = false;
   }
 
-  // Ana filtre uygulama metodu - intensity parametresi eklendi
+  // main methodfor filter
   static Future<Image?> applyFilter(File imageFile, int filterIndex, {double intensity = 1.0}) async {
     try {
-      // Isolate hazır değilse başlat
+      // start isolate
       if (!_isIsolateReady) {
         await initializeIsolate();
       }
 
-      // Orijinal görüntü seçildiyse filtreleme yapma
+      // no filter
       if (filterIndex == 0) {
         return Image.file(imageFile);
       }
 
-      // Geçici output dosyası oluştur
+      // temp output file
       final tempDir = await getTemporaryDirectory();
       final outputPath = '${tempDir.path}/filtered_${DateTime.now().millisecondsSinceEpoch}_${filterIndex}_${intensity.toStringAsFixed(1)}.jpg';
       
@@ -96,17 +96,17 @@ class IsolateImageProcessor {
     }
   }
 
-  // Memory Image'a filtre uygulama - intensity parametresi eklendi
+  // apply filter to memory image
   static Future<Image?> applyFilterToMemoryImage(Image sourceImage, int filterIndex, {double intensity = 1.0}) async {
     
     if (filterIndex == 0) return sourceImage;
 
-    // Isolate hazır değilse başlat
+    // start isolate
     if (!_isIsolateReady) {
       await initializeIsolate();
     }
 
-    // Memory image'ı geçici dosyaya kaydet
+    // save temp file to memory image
     File? tempInputFile;
     
     if (sourceImage.image is MemoryImage) {
@@ -120,13 +120,13 @@ class IsolateImageProcessor {
       return null;
     }
 
-    // Geçici output dosyası oluştur
+    // temp output file
     final tempDir = await getTemporaryDirectory();
     final outputPath = '${tempDir.path}/filtered_${DateTime.now().millisecondsSinceEpoch}_${filterIndex}_${intensity.toStringAsFixed(1)}.jpg';
 
     final result = await _processImageInIsolate(tempInputFile.path, outputPath, filterIndex, intensity);
     
-    // Eğer geçici input dosyası oluşturduysak sil
+    // delete temp input file
     if (sourceImage.image is MemoryImage) {
       await tempInputFile.delete();
     }
@@ -141,7 +141,7 @@ class IsolateImageProcessor {
 
   }
 
-  // Isolate'e işlem gönder ve sonuç bekle - intensity parametresi eklendi
+  // send image to isolate
   static Future<ImageProcessingResult> _processImageInIsolate(
     String inputPath, 
     String outputPath,
@@ -162,17 +162,17 @@ class IsolateImageProcessor {
       responsePort: responsePort.sendPort,
     );
     
-    // İsteği isolate'e gönder
+    // send request to isolate
     _isolateSendPort!.send(request);
     
-    // Sonucu bekle
+    // result
     final result = await responsePort.first as ImageProcessingResult;
     responsePort.close();
     
     return result;
   }
 
-  // Bytes'ı geçici dosyaya kaydetme yardımcı fonksiyonu
+  // save Bytes to the temp file
   static Future<File> _saveBytesToTempFile(Uint8List bytes, String prefix) async {
     final tempDir = await getTemporaryDirectory();
     final tempFile = File('${tempDir.path}/${prefix}_${DateTime.now().millisecondsSinceEpoch}.jpg');
@@ -180,7 +180,7 @@ class IsolateImageProcessor {
     return tempFile;
   }
 
-  // Memory Image'ı geçici dosyaya kaydetme fonksiyonu (mevcut API uyumluluğu için)
+  // save memory image to temp file
   static Future<File> saveMemoryImageToTempFile(Image memoryImage) async {
     if (memoryImage.image is MemoryImage) {
       final memImage = memoryImage.image as MemoryImage;
@@ -190,7 +190,7 @@ class IsolateImageProcessor {
     throw Exception('Memory image geçici dosyaya kaydedilemedi');
   }
 
-  // Memory Image'dan bytes alma (mevcut API uyumluluğu için)
+  // get bytes from memory image
   static Future<Uint8List?> getImageBytes(Image image) async {
     if (image.image is MemoryImage) {
       final memImage = image.image as MemoryImage;
@@ -203,17 +203,16 @@ class IsolateImageProcessor {
   }
 }
 
-// Isolate'de çalışacak ana fonksiyon
+// main function in isolate
 void _imageProcessingIsolate(SendPort mainSendPort) async {
   final receivePort = ReceivePort();
   
-  // Ana thread'e SendPort'u gönder
   mainSendPort.send(receivePort.sendPort);
   
-  // FilterLib instance'ını isolate içinde oluştur
+  // filterLib instance
   final filterLib = FilterLib();
   
-  // İstekleri dinle
+  // listen for requests
   await for (final message in receivePort) {
     if (message is ImageProcessingRequest) {
       try {
@@ -234,7 +233,7 @@ void _imageProcessingIsolate(SendPort mainSendPort) async {
   }
 }
 
-// Isolate içinde image processing işlemini yapan yardımcı fonksiyon - intensity eklendi
+// helper function
 Future<ImageProcessingResult> _processImageInIsolateHelper(
   String inputPath,
   String outputPath,
@@ -243,16 +242,16 @@ Future<ImageProcessingResult> _processImageInIsolateHelper(
   FilterLib filterLib,
 ) async {
   try {
-    // Input dosyasının var olduğundan emin ol
+    // input file check
     final inputFile = File(inputPath);
     if (!await inputFile.exists()) {
       return ImageProcessingResult.error('Input file does not exist');
     }
 
-    // Filtreyi path-based olarak intensity ile uygula
+    // apply filter. image file's path is sent
     filterLib.applyFilterByIndex(filterIndex, inputPath, outputPath, intensity: intensity);
 
-    // Output dosyasının oluşturulduğundan emin ol
+    // output file
     final outputFile = File(outputPath);
     if (!await outputFile.exists()) {
       return ImageProcessingResult.error('Filter processing failed - output file not created');
