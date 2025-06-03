@@ -75,13 +75,6 @@ flutter run
 - Make sure you have the corresponding opencv libraries in your project.
 
     - For android copy the opencv library folder into source folder.
-    - For ios copy the opencv2.framework folder to ios folder
+    - For ios copy the opencv2.framework folder to ios folder. And add the opencv2.framework to your Xcode project.
 
 - Notice that AI process is actually simulation behavior to show the user. And for it is to be run correctly run the python script "edge_api.py" in the source folder
-
----
-
-
-
-
-
