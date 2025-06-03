@@ -15,7 +15,7 @@ void apply_filter1(const char* input_path, const char* output_path, float intens
         0.393, 0.769, 0.189);
     cv::transform(image, image, sepiaKernel);
     
-    // Intensity ile blend
+    // Intensity blend
     cv::addWeighted(original, 1.0 - intensity, image, intensity, 0, image);
     
     cv::imwrite(output_path, image);
@@ -33,7 +33,7 @@ void apply_filter2(const char* input_path, const char* output_path, float intens
         0.00, 0.00, 0.95);
     cv::transform(image, image, warmKernel);
     
-    // Intensity ile blend
+    // Intensity blend
     cv::addWeighted(original, 1.0 - intensity, image, intensity, 0, image);
     
     cv::imwrite(output_path, image);
@@ -51,7 +51,7 @@ void apply_filter3(const char* input_path, const char* output_path, float intens
         0.00, 0.00, 1.05);
     cv::transform(image, image, coolKernel);
     
-    // Intensity ile blend
+    // Intensity blend
     cv::addWeighted(original, 1.0 - intensity, image, intensity, 0, image);
     
     cv::imwrite(output_path, image);
@@ -72,7 +72,7 @@ void apply_filter4(const char* input_path, const char* output_path, float intens
     
     cv::cvtColor(sketch, image, cv::COLOR_GRAY2BGR);
     
-    // Intensity ile blend
+    // Intensity blend
     cv::addWeighted(original, 1.0 - intensity, image, intensity, 0, image);
     
     cv::imwrite(output_path, image);
@@ -85,7 +85,7 @@ void apply_filter5(const char* input_path, const char* output_path, float intens
     
     cv::Mat original = image.clone();
     
-    // Contrast ayarı için intensity kullan
+    // Contrast intensity
     float contrast = 1.0 + (0.5 * intensity); // 1.0 - 1.5 arası
     cv::Mat contrastKernel = (cv::Mat_<float>(3,3) <<
         contrast, 0.0, 0.0,
@@ -103,7 +103,7 @@ void apply_filter6(const char* input_path, const char* output_path, float intens
     
     cv::Mat original = image.clone();
     
-    // Fade miktarı için intensity kullan
+    // Fade intensity
     float fade = 1.0 - (0.3 * intensity); // 1.0 - 0.7 arası
     cv::Mat fadeKernel = (cv::Mat_<float>(3,3) <<
         fade, 0.0, 0.0,
@@ -124,7 +124,7 @@ void apply_filter7(const char* input_path, const char* output_path, float intens
     cv::cvtColor(image, gray, cv::COLOR_BGR2GRAY);
     cv::cvtColor(gray, image, cv::COLOR_GRAY2BGR);
     
-    // Intensity ile blend
+    // Intensity blend
     cv::addWeighted(original, 1.0 - intensity, image, intensity, 0, image);
     
     cv::imwrite(output_path, image);
@@ -142,13 +142,13 @@ void apply_filter8(const char* input_path, const char* output_path, float intens
         0.272, 0.534, 0.131);
     cv::transform(image, image, vintageKernel);
     
-    // Vintage karartma efekti - intensity'ye göre ayarla
+    // Vintage intensity
     cv::Mat overlay = cv::Mat::zeros(image.size(), image.type());
     cv::rectangle(overlay, cv::Point(0, 0), cv::Point(image.cols, image.rows), 
                   cv::Scalar(20 * intensity, 15 * intensity, 10 * intensity), -1);
     cv::addWeighted(image, 1.0 - (0.15 * intensity), overlay, 0.15 * intensity, 0, image);
     
-    // Orijinal ile blend
+    // Orijinal blend
     cv::addWeighted(original, 1.0 - intensity, image, intensity, 0, image);
     
     cv::imwrite(output_path, image);
@@ -161,7 +161,7 @@ void apply_filter9(const char* input_path, const char* output_path, float intens
     
     cv::Mat original = image.clone();
     
-    // Blur miktarı için intensity kullan
+    // Blur intensity
     int blurSize = static_cast<int>(5 + (20 * intensity)); // 5-25 arası
     if (blurSize % 2 == 0) blurSize++; // Tek sayı olması gerekiyor
     
@@ -179,14 +179,14 @@ void apply_filter10(const char* input_path, const char* output_path, float inten
     cv::Mat gray, edges;
     cv::cvtColor(image, gray, cv::COLOR_BGR2GRAY);
     
-    // Threshold değerlerini intensity'ye göre ayarla
+    // Threshold intensity 
     double lowThreshold = 50 + (100 * intensity);   // 50-150 arası
     double highThreshold = 100 + (200 * intensity); // 100-300 arası
     
     cv::Canny(gray, edges, lowThreshold, highThreshold);
     cv::cvtColor(edges, image, cv::COLOR_GRAY2BGR);
     
-    // Intensity ile blend
+    // Intensity blend
     cv::addWeighted(original, 1.0 - intensity, image, intensity, 0, image);
     
     cv::imwrite(output_path, image);
@@ -201,7 +201,7 @@ void apply_filter11(const char* input_path, const char* output_path, float inten
     cv::Mat gray, emboss;
     cv::cvtColor(image, gray, cv::COLOR_BGR2GRAY);
     
-    // Emboss kernel - intensity'ye göre güçlendir
+    // Emboss kernel intensity
     cv::Mat kernel = (cv::Mat_<float>(3,3) <<
         -2 * intensity, -1 * intensity,  0,
         -1 * intensity,  1,  1 * intensity,
@@ -210,7 +210,7 @@ void apply_filter11(const char* input_path, const char* output_path, float inten
     cv::filter2D(gray, emboss, -1, kernel);
     cv::cvtColor(emboss, image, cv::COLOR_GRAY2BGR);
     
-    // Intensity ile blend
+    // Intensity blend
     cv::addWeighted(original, 1.0 - intensity, image, intensity, 0, image);
     
     cv::imwrite(output_path, image);
@@ -224,7 +224,7 @@ void apply_filter12(const char* input_path, const char* output_path, float inten
     cv::Mat original = image.clone();
     cv::bitwise_not(image, image);
     
-    // Intensity ile blend
+    // Intensity blend
     cv::addWeighted(original, 1.0 - intensity, image, intensity, 0, image);
     
     cv::imwrite(output_path, image);
