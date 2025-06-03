@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:image_filter/helper/filters.dart';
 import 'package:image_filter/services/image_processor.dart';
 
+// filter preview and cache managament
+
 class FilterPreviewProvider extends ChangeNotifier {
   final Map<int, Image?> _previewCache = {};
   final Set<int> _loadingPreviews = {};
@@ -20,7 +22,6 @@ class FilterPreviewProvider extends ChangeNotifier {
     _previewCache.clear();
     _loadingPreviews.clear();
     _previewCache[0] = Image.file(imageFile);
-    // notifyListeners() çağırmıyoruz çünkü build sırasında çağrılabilir
   }
 
   Future<void> generatePreviews(File imageFile) async {

@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:image_filter/services/image_processor.dart';
 import 'package:image_filter/helper/filters.dart';
 
+
+// image processing and filter state management
+
 class FilterState {
   final int filterIndex;
   final String filterName;
@@ -28,7 +31,7 @@ class ImageDisplayProvider extends ChangeNotifier {
   List<FilterState> _filterStates = [];
   int _currentStateIndex = 0;
 
-  // Getters
+  // getters
   int get selectedFilterIndex => _selectedFilterIndex;
   double get filterIntensity => _filterIntensity;
   Image? get displayedImage => _displayedImage;
@@ -39,7 +42,7 @@ class ImageDisplayProvider extends ChangeNotifier {
   int get currentStateIndex => _currentStateIndex;
 
   void setImageFile(File file) {
-    // Yeni fotoğraf geldiğinde tüm state'i sıfırla
+    // reset state for new file
     _imageFile = file;
     _displayedImage = Image.file(file);
     _selectedFilterIndex = 0;
@@ -48,7 +51,7 @@ class ImageDisplayProvider extends ChangeNotifier {
     _isAIin = false;
     _currentStateIndex = 0;
     
-    // Filter states'i sıfırla ve sadece orijinal ekle
+    // reset filterstate for new file
     _filterStates.clear();
     _filterStates.add(FilterState(
       filterIndex: 0,
@@ -103,12 +106,12 @@ class ImageDisplayProvider extends ChangeNotifier {
   }
 
 void addFilterState(FilterState newState) {
-  // Eğer şu anda son state'de değilsek, sonrasını kes
+  // cut the states if left arrow is clicked
   if (_currentStateIndex < _filterStates.length - 1) {
     _filterStates = _filterStates.sublist(0, _currentStateIndex + 1);
   }
   
-  // Yeni state'i ekle
+  // add new state to chain
   _filterStates.add(newState);
   _currentStateIndex = _filterStates.length - 1;
   _displayedImage = newState.processedImage;
@@ -153,6 +156,7 @@ void addFilterState(FilterState newState) {
     notifyListeners();
   }
 
+  // helper methods
   void resetToOriginal() {
     _filterStates = [_filterStates[0]];
     _currentStateIndex = 0;

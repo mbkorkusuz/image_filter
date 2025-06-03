@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// display slider management
+
 class ImageComparisonProvider extends ChangeNotifier {
   double _sliderPosition = 0.5;
   bool _isSliderActive = false;
@@ -20,7 +22,6 @@ class ImageComparisonProvider extends ChangeNotifier {
   void resetSlider() {
     _sliderPosition = 0.5;
     _isSliderActive = false;
-    // notifyListeners() çağırmıyoruz çünkü build sırasında çağrılabilir
   }
 
   void updateSliderPosition(double position, double maxWidth) {
