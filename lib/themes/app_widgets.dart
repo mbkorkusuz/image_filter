@@ -200,7 +200,7 @@ class AppWidgets {
     return Text(label, style: AppTextStyles.intensityTick(isSelected));
   }
 
-  // Filter Chain Item
+  // filter chain single item widget
   static Widget filterChainItem({
     required String filterName,
     required bool isSelected,

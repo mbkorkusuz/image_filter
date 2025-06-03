@@ -28,6 +28,7 @@ class ImageFilterApp extends StatelessWidget {
           textTheme: Typography.blackCupertino,
         ),
         initialRoute: '/',
+        // routes for screens
         routes: 
         {
           '/': (context) => PhotoPickerScreen(),

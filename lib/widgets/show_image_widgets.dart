@@ -34,7 +34,7 @@ class PhotoDisplayHeader extends StatelessWidget {
           ),
           child: Stack(
             children: [
-              // Sol - Vazgeç butonu
+              // cancel button
               Positioned(
                 left: 0,
                 child: IconButton(
@@ -45,7 +45,7 @@ class PhotoDisplayHeader extends StatelessWidget {
                 ),
               ),
               
-              // Orta - AI butonu
+              // AI button
               Center(
                 child: IconButton(
                   onPressed: onAIProcess,
@@ -55,12 +55,13 @@ class PhotoDisplayHeader extends StatelessWidget {
                 ),
               ),
               
-              // Sağ - Kaydet ve Reset butonları
+              // up right
               Positioned(
                 right: 0,
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    // save button
                     IconButton(
                       onPressed: imageDisplayProvider.filterStates.length > 1 ? onSave : null,
                       icon: const Icon(Icons.check, size: 24),
@@ -70,6 +71,7 @@ class PhotoDisplayHeader extends StatelessWidget {
                       tooltip: 'Kaydet',
                     ),
                     const SizedBox(width: 8),
+                    // reset button
                     IconButton(
                       onPressed: imageDisplayProvider.filterStates.length > 1 ? onReset : null,
                       icon: const Icon(Icons.refresh, size: 20),
@@ -97,13 +99,13 @@ class FilterChainSection extends StatelessWidget {
     return Consumer<ImageDisplayProvider>(
       builder: (context, imageDisplayProvider, child) {
         return Container(
-          height: 50, // Sabit yükseklik - her zaman aynı yer kaplayacak
+          height: 50, 
           padding: const EdgeInsets.symmetric(
             horizontal: 16, 
             vertical: 4,
           ),
           child: imageDisplayProvider.filterStates.length <= 1
-            ? const SizedBox() // Boş alan ama yükseklik aynı
+            ? const SizedBox() 
             : SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
@@ -113,7 +115,6 @@ class FilterChainSection extends StatelessWidget {
                       isSelected: imageDisplayProvider.currentStateIndex == 0,
                       isOriginal: true,
                     ),
-                    
                     ...imageDisplayProvider.filterStates.skip(1).toList().asMap().entries.map((entry) {
                       final stateIndex = entry.key + 1;
                       final state = entry.value;
