@@ -1,7 +1,6 @@
 from flask import Flask, request, send_file
 import cv2
 import numpy as np
-import tempfile
 from io import BytesIO
 import time
 
@@ -43,4 +42,4 @@ def process_image():
     return send_file(BytesIO(buffer), mimetype='image/jpeg')
 
 if __name__ == '__main__':
-    app.run(port=5000)
+    app.run(host='0.0.0.0', port=5000)

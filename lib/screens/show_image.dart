@@ -155,31 +155,18 @@ Future<void> sendToPythonApi(File imageFile) async {
   try {
     imageDisplayProvider.setAIProcessing(true);
     
-    // Şu anda pipeline'da görünen görüntüyü al
+    
     final currentImage = imageDisplayProvider.displayedImage ?? 
                         imageDisplayProvider.filterStates[imageDisplayProvider.currentStateIndex].processedImage;
     
-    // Görüntüyü geçici dosyaya kaydet
-    File imageToSend;
     
-    if (currentImage.image is FileImage) {
-      // Eğer FileImage ise direkt dosyayı kullan
-      imageToSend = (currentImage.image as FileImage).file;
-    } else if (currentImage.image is MemoryImage) {
-      // MemoryImage ise geçici dosyaya kaydet
-      final memImage = currentImage.image as MemoryImage;
-      final tempDir = await getTemporaryDirectory();
-      imageToSend = File('${tempDir.path}/current_${DateTime.now().millisecondsSinceEpoch}.jpg');
-      await imageToSend.writeAsBytes(memImage.bytes);
-    } else {
-      // Fallback olarak orijinal dosyayı kullan
-      imageToSend = imageFile;
-    }
+    File imageToSend;
+    imageToSend = (currentImage.image as FileImage).file;
     
     final uri = Uri.parse('http://10.0.2.2:5000/process');
     final request = http.MultipartRequest('POST', uri);
     
-    // Şu anki pipeline görüntüsünü gönder
+    
     request.files.add(
       await http.MultipartFile.fromPath('image', imageToSend.path)
     );
@@ -188,20 +175,20 @@ Future<void> sendToPythonApi(File imageFile) async {
     final response = await http.Response.fromStream(streamedResponse);
     
     if (response.statusCode == 200) {
-      // İşlenmiş görüntüyü al
+
       final processedImageBytes = response.bodyBytes;
       
-      // Geçici dosya oluştur
+
       final tempDir = await getTemporaryDirectory();
       final tempFile = File('${tempDir.path}/ai_processed_${DateTime.now().millisecondsSinceEpoch}.jpg');
       await tempFile.writeAsBytes(processedImageBytes);
       
-      // İşlenmiş görüntüyü pipeline'a ekle
+
       final processedImage = Image.file(tempFile);
       
-      // Yeni FilterState oluştur ve pipeline'a ekle
+
       final newState = FilterState(
-        filterIndex: 99, // AI işlemi için özel index
+        filterIndex: 13, // AI filter index
         filterName: 'AI İyileştirme',
         processedImage: processedImage,
         timestamp: DateTime.now(),
@@ -211,8 +198,7 @@ Future<void> sendToPythonApi(File imageFile) async {
     } else {
       throw Exception('API hatası: ${response.statusCode}');
     }
-    
-    // Geçici dosyayı temizle (sadece MemoryImage için oluşturduysak)
+
     if (currentImage.image is MemoryImage && imageToSend.path != imageFile.path) {
       await imageToSend.delete();
     }

@@ -93,49 +93,49 @@ class FilterLib {
     final inputPathPtr = inputPath.toNativeUtf8();
     final outputPathPtr = outputPath.toNativeUtf8();
     
-    try {
-      switch (index) {
-        case 1:
-          applyFilter1(inputPathPtr, outputPathPtr, intensity);
-          break;
-        case 2:
-          applyFilter2(inputPathPtr, outputPathPtr, intensity);
-          break;
-        case 3:
-          applyFilter3(inputPathPtr, outputPathPtr, intensity);
-          break;
-        case 4:
-          applyFilter4(inputPathPtr, outputPathPtr, intensity);
-          break;
-        case 5:
-          applyFilter5(inputPathPtr, outputPathPtr, intensity);
-          break;
-        case 6:
-          applyFilter6(inputPathPtr, outputPathPtr, intensity);
-          break;
-        case 7:
-          applyFilter7(inputPathPtr, outputPathPtr, intensity);
-          break;
-        case 8:
-          applyFilter8(inputPathPtr, outputPathPtr, intensity);
-          break;
-        case 9:
-          applyFilter9(inputPathPtr, outputPathPtr, intensity);
-          break;
-        case 10:
-          applyFilter10(inputPathPtr, outputPathPtr, intensity);
-          break;
-        case 11:
-          applyFilter11(inputPathPtr, outputPathPtr, intensity);
-          break;
-        case 12:
-          applyFilter12(inputPathPtr, outputPathPtr, intensity);
-          break;
-      }
-    } finally {
-      malloc.free(inputPathPtr);
-      malloc.free(outputPathPtr);
+    
+    switch (index) {
+      case 1:
+        applyFilter1(inputPathPtr, outputPathPtr, intensity);
+        break;
+      case 2:
+        applyFilter2(inputPathPtr, outputPathPtr, intensity);
+        break;
+      case 3:
+        applyFilter3(inputPathPtr, outputPathPtr, intensity);
+        break;
+      case 4:
+        applyFilter4(inputPathPtr, outputPathPtr, intensity);
+        break;
+      case 5:
+        applyFilter5(inputPathPtr, outputPathPtr, intensity);
+        break;
+      case 6:
+        applyFilter6(inputPathPtr, outputPathPtr, intensity);
+        break;
+      case 7:
+        applyFilter7(inputPathPtr, outputPathPtr, intensity);
+        break;
+      case 8:
+        applyFilter8(inputPathPtr, outputPathPtr, intensity);
+        break;
+      case 9:
+        applyFilter9(inputPathPtr, outputPathPtr, intensity);
+        break;
+      case 10:
+        applyFilter10(inputPathPtr, outputPathPtr, intensity);
+        break;
+      case 11:
+        applyFilter11(inputPathPtr, outputPathPtr, intensity);
+        break;
+      case 12:
+        applyFilter12(inputPathPtr, outputPathPtr, intensity);
+        break;
     }
+    
+    malloc.free(inputPathPtr);
+    malloc.free(outputPathPtr);
+    
   }
 
   
