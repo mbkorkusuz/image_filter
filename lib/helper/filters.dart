@@ -2,12 +2,11 @@ import 'dart:ffi';
 import 'dart:io';
 import 'package:ffi/ffi.dart';
 
-/// C++ tarafındaki fonksiyonun imzası - artık path parametreleri ve intensity alıyor
 typedef FilterFuncC = Void Function(
   Pointer<Utf8>, Pointer<Utf8>, Float,
 );
 
-/// Dart karşılığı
+
 typedef FilterFuncDart = void Function(
   Pointer<Utf8>, Pointer<Utf8>, double,
 );
@@ -15,27 +14,27 @@ typedef FilterFuncDart = void Function(
 class FilterLib {
   late DynamicLibrary _lib;
 
-  late FilterFuncDart applyFilter1;  // Sepia
-  late FilterFuncDart applyFilter2;  // Warm
-  late FilterFuncDart applyFilter3;  // Cool
-  late FilterFuncDart applyFilter4;  // Sketch
-  late FilterFuncDart applyFilter5;  // High Contrast
-  late FilterFuncDart applyFilter6;  // Fade
-  late FilterFuncDart applyFilter7;  // Black & White
-  late FilterFuncDart applyFilter8;  // Vintage
-  late FilterFuncDart applyFilter9;  // Blur
-  late FilterFuncDart applyFilter10; // Edge Detection
-  late FilterFuncDart applyFilter11; // Emboss
-  late FilterFuncDart applyFilter12; // Negative,
+  late FilterFuncDart applyFilter1;
+  late FilterFuncDart applyFilter2;
+  late FilterFuncDart applyFilter3;
+  late FilterFuncDart applyFilter4;
+  late FilterFuncDart applyFilter5;
+  late FilterFuncDart applyFilter6;
+  late FilterFuncDart applyFilter7;
+  late FilterFuncDart applyFilter8;
+  late FilterFuncDart applyFilter9;
+  late FilterFuncDart applyFilter10;
+  late FilterFuncDart applyFilter11;
+  late FilterFuncDart applyFilter12;
 
   
 
   FilterLib() {
-    // Platforma göre .so veya .dylib seçimi
+    // platforma göre .so veya .dylib seçimi
     if (Platform.isAndroid) {
       _lib = DynamicLibrary.open('libfilters.so');
     } else if (Platform.isIOS) {
-      _lib = DynamicLibrary.process(); // iOS için bu yeterli
+      _lib = DynamicLibrary.process(); 
     } else {
       throw UnsupportedError('Unsupported platform');
     }
@@ -89,7 +88,7 @@ class FilterLib {
         .asFunction();
   }
 
-  // Path-based filtre uygulama yardımcı fonksiyonu - intensity eklendi
+  
   void applyFilterByIndex(int index, String inputPath, String outputPath, {double intensity = 1.0}) {
     final inputPathPtr = inputPath.toNativeUtf8();
     final outputPathPtr = outputPath.toNativeUtf8();
@@ -139,7 +138,7 @@ class FilterLib {
     }
   }
 
-  // Filtre isimlerini almak için yardımcı fonksiyon
+  
   static String getFilterName(int index) {
     switch (index) {
       case 0: return 'Orijinal';
@@ -159,7 +158,7 @@ class FilterLib {
     }
   }
 
-  // Intensity seviyelerini string olarak döndür
+  
   static String getIntensityLabel(double intensity) {
     if (intensity <= 0.2) return '1';
     if (intensity <= 0.4) return '2';
