@@ -228,13 +228,13 @@ class IntensitySliderSection extends StatelessWidget {
     return Consumer<ImageDisplayProvider>(
       builder: (context, imageDisplayProvider, child) {
         return Container(
-          height: 80, // Sabit yükseklik
+          height: 80,
           padding: const EdgeInsets.symmetric(
             horizontal: 20, 
             vertical: 12
           ),
           child: imageDisplayProvider.selectedFilterIndex == 0 
-            ? const SizedBox() // Boş alan ama yükseklik aynı
+            ? const SizedBox()
             : AppWidgets.intensitySlider(
                 context: context,
                 value: imageDisplayProvider.filterIntensity,

@@ -142,7 +142,7 @@ class _FilterPreviewWidgetState extends State<FilterPreviewWidget> {
             Container(
               width: double.infinity,
               height: double.infinity,
-              color: Colors.blue.withOpacity(0.3),
+              color: Colors.transparent,
               child: Center(
                 child: Text(
                   FilterLib.getFilterName(index),

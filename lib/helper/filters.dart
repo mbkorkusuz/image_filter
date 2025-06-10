@@ -154,7 +154,7 @@ class FilterLib {
       case 10: return 'Kenar';
       case 11: return 'Kabartma';
       case 12: return 'Negatif';
-      default: return 'Filtre $index';
+      default: return '';
     }
   }
 

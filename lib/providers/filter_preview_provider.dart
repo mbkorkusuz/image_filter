@@ -43,8 +43,8 @@ class FilterPreviewProvider extends ChangeNotifier {
 
     try {
       final filteredImage = await IsolateImageProcessor.applyFilter(
-        imageFile, 
-        filterIndex, 
+        imageFile,
+        filterIndex,
         intensity: 0.6
       );
       

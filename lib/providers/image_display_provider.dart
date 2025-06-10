@@ -92,13 +92,7 @@ class ImageDisplayProvider extends ChangeNotifier {
         timestamp: DateTime.now(),
       );
       
-      if (_currentStateIndex < _filterStates.length - 1) {
-        _filterStates = _filterStates.sublist(0, _currentStateIndex + 1);
-      }
-      
-      _filterStates.add(newState);
-      _currentStateIndex = _filterStates.length - 1;
-      _displayedImage = filteredImage;
+      addFilterState(newState);
     }
 
     _isProcessing = false;
@@ -106,7 +100,8 @@ class ImageDisplayProvider extends ChangeNotifier {
   }
 
 void addFilterState(FilterState newState) {
-  // cut the states if left arrow is clicked
+  
+  // if newly added state is in between previously next state 
   if (_currentStateIndex < _filterStates.length - 1) {
     _filterStates = _filterStates.sublist(0, _currentStateIndex + 1);
   }
@@ -119,7 +114,6 @@ void addFilterState(FilterState newState) {
   notifyListeners();
 }
 
-
   Future<void> onIntensityChanged(double newIntensity) async {
     if (_selectedFilterIndex == 0 || _isProcessing) return;
     
@@ -128,15 +122,10 @@ void addFilterState(FilterState newState) {
     notifyListeners();
 
     Image baseImage;
-    if (_filterStates.length == 2) {
-      baseImage = _filterStates[0].processedImage;
-    } else {
-      baseImage = _filterStates[_currentStateIndex - 1].processedImage;
-    }
-    
+    baseImage = _filterStates[_currentStateIndex - 1].processedImage;
     final filteredImage = await IsolateImageProcessor.applyFilterToMemoryImage(
-      baseImage, 
-      _selectedFilterIndex, 
+      baseImage,
+      _selectedFilterIndex,
       intensity: _filterIntensity
     );
     
