@@ -73,7 +73,7 @@ class AppWidgets {
     );
   }
 
-  // Header Section - Fixed return type
+  // Header Section
   static Widget headerSection({
     required String title,
     required String subtitle,
