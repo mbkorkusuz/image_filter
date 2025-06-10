@@ -22,8 +22,6 @@ class AppWidgets {
   static Widget emptyState({
     required IconData icon,
     required String title,
-    required String subtitle,
-    Widget? actionButton,
   }) {
     return Center(
       child: Column(
@@ -32,12 +30,6 @@ class AppWidgets {
           Icon(icon, size: 80, color: AppTheme.grey400),
           const SizedBox(height: 20),
           Text(title, style: AppTextStyles.heading2.copyWith(color: AppTheme.grey700)),
-          const SizedBox(height: 8),
-          Text(subtitle, style: AppTextStyles.bodySecondary),
-          if (actionButton != null) ...[
-            const SizedBox(height: 30),
-            actionButton,
-          ],
         ],
       ),
     );
@@ -76,28 +68,14 @@ class AppWidgets {
   // Header Section
   static Widget headerSection({
     required String title,
-    required String subtitle,
-    Widget? trailing,
   }) {
     return Padding(
       padding: const EdgeInsets.all(20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(title, style: AppTextStyles.heading1),
-                  const SizedBox(height: 4),
-                  Text(subtitle, style: AppTextStyles.bodySecondary),
-                ],
-              ),
-              if (trailing != null) trailing,
-            ],
-          ),
+              Text(title, style: AppTextStyles.heading1),
+              const SizedBox(height: 4),
         ],
       ),
     );

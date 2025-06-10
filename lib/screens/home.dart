@@ -84,7 +84,6 @@ class _PhotoPickerScreenState extends State<PhotoPickerScreen> {
           builder: (context, homeProvider, child) {
             return AppWidgets.headerSection(
               title: 'Koleksiyonlar',
-              subtitle: '',
             );
           },
         ),
@@ -92,7 +91,6 @@ class _PhotoPickerScreenState extends State<PhotoPickerScreen> {
         IconButton(
             onPressed: () => _selectImage(context), 
             icon: const Icon(Icons.add, size: 32, color: Colors.black,),
-            padding: const EdgeInsets.symmetric(horizontal: 20),            
         )
       ],
     );
@@ -102,7 +100,6 @@ class _PhotoPickerScreenState extends State<PhotoPickerScreen> {
     return AppWidgets.emptyState(
       icon: Icons.collections_rounded,
       title: 'Henüz Koleksiyon Yok',
-      subtitle: "",
     );
   }
 
