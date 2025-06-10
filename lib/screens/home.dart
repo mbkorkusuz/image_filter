@@ -114,7 +114,6 @@ class _PhotoPickerScreenState extends State<PhotoPickerScreen> {
         itemBuilder: (context, index) {
           final dateGroup = groupedImages.keys.toList()[index];
           final images = groupedImages[dateGroup]!;
-          
           return _buildDateSection(dateGroup, images);
         },
       ),
@@ -188,9 +187,9 @@ class _PhotoPickerScreenState extends State<PhotoPickerScreen> {
                     const SizedBox(height: 16),
                     IconButton(
                       onPressed: () {
-                        Navigator.pop(context);
                         _showDeleteDialog(image);
                       }, 
+                      
                       icon: const Icon(Icons.delete, size: 24),
                     ),
                   ],
@@ -198,7 +197,7 @@ class _PhotoPickerScreenState extends State<PhotoPickerScreen> {
               ),
             ),
             Positioned(
-              top: 40,
+              top: 0,
               right: 0,
               child: GestureDetector(
                 onTap: () => Navigator.pop(context),
@@ -226,7 +225,9 @@ class _PhotoPickerScreenState extends State<PhotoPickerScreen> {
     ).then((confirmed) {
       if (confirmed == true) {
         _deleteImage(image);
+        Navigator.pop(context);
       }
+      
     });
   }
 }

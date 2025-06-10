@@ -53,6 +53,7 @@ class AppWidgets {
     return snackBar(
       message: message,
       backgroundColor: AppTheme.successColor,
+      duration: const Duration(seconds: 2),
     );
   }
 
@@ -61,7 +62,7 @@ class AppWidgets {
     return snackBar(
       message: message,
       backgroundColor: AppTheme.errorColor,
-      duration: const Duration(seconds: 3),
+      duration: const Duration(seconds: 4),
     );
   }
 
@@ -99,27 +100,6 @@ class AppWidgets {
             ),
           ],
         ),
-    );
-  }
-
-  // Placeholder Image
-  static Widget placeholderImage() {
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [AppTheme.grey100, AppTheme.grey400],
-        ),
-      ),
-      child: Icon(
-        Icons.image,
-        size: 40,
-        color: AppTheme.primaryColor,
-      ),
     );
   }
 
