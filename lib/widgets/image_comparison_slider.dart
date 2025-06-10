@@ -41,14 +41,14 @@ class ImageComparisonSlider extends StatelessWidget {
               },
               child: Stack(
                 children: [
-                  // Filtreli görüntü (alt katman)
+                  // Filtreli görüntü (üst katman)
                   SizedBox(
                     width: constraints.maxWidth,
                     height: constraints.maxHeight,
                     child: filteredImage,
                   ),
                   
-                  // Orijinal görüntü (üst katman, kırpılmış) - sadece slider aktifken
+                  // Orijinal görüntü (alt katman)
                   if (comparisonProvider.isSliderActive)
                     ClipRect(
                       clipper: LeftClipper(comparisonProvider.sliderPosition),
@@ -59,7 +59,7 @@ class ImageComparisonSlider extends StatelessWidget {
                       ),
                     ),
                   
-                  // Slider çizgisi - görünmez
+                  // slider çizgisi
                   if (comparisonProvider.isSliderActive)
                     Positioned(
                       left: (comparisonProvider.sliderPosition * constraints.maxWidth),

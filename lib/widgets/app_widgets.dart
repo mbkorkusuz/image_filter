@@ -168,8 +168,8 @@ class AppWidgets {
         vertical: 8,
       ),
       decoration: isOriginal 
-        ? AppButtonStyles.filterChainGreenButton(isSelected)
-        : AppButtonStyles.filterChainButton(isSelected),
+        ? AppButtonStyles.filterChainGreenBox(isSelected)
+        : AppButtonStyles.filterChainBox(isSelected),
       child: Text(
         filterName,
         style: AppTextStyles.bodySmall.copyWith(

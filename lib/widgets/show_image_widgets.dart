@@ -63,7 +63,7 @@ class PhotoDisplayHeader extends StatelessWidget {
                   children: [
                     // save button
                     IconButton(
-                      onPressed: imageDisplayProvider.filterStates.length > 1 ? onSave : null,
+                      onPressed: onSave,
                       icon: const Icon(Icons.check, size: 24),
                       style: AppButtonStyles.iconButton(
                         color: imageDisplayProvider.filterStates.length > 1 ? AppTheme.successColor : AppTheme.grey400
@@ -73,7 +73,7 @@ class PhotoDisplayHeader extends StatelessWidget {
                     const SizedBox(width: 8),
                     // reset button
                     IconButton(
-                      onPressed: imageDisplayProvider.filterStates.length > 1 ? onReset : null,
+                      onPressed: onReset,
                       icon: const Icon(Icons.refresh, size: 20),
                       style: AppButtonStyles.iconButton(
                         color: imageDisplayProvider.filterStates.length > 1 ? AppTheme.errorColor : AppTheme.grey400
@@ -104,9 +104,7 @@ class FilterChainSection extends StatelessWidget {
             horizontal: 16, 
             vertical: 4,
           ),
-          child: imageDisplayProvider.filterStates.length <= 1
-            ? const SizedBox() 
-            : SingleChildScrollView(
+          child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
@@ -166,7 +164,7 @@ class PhotoDisplayImage extends StatelessWidget {
               children: [
                 Container(
                   width: double.infinity,
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: _buildImageContent(imageDisplayProvider),
                 ),
                 if (imageDisplayProvider.isProcessing)

@@ -77,14 +77,6 @@ class _PhotoDisplayScreenState extends State<PhotoDisplayScreen>
     }
   }
 
-  void _showErrorSnackBar(String message) {
-    if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        AppWidgets.errorSnackBar(message)
-      );
-    }
-  }
-
   void _onSavePressed() async {
     final imageDisplayProvider = context.read<ImageDisplayProvider>();
     final homeProvider = context.read<HomeProvider>();

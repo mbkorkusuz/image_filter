@@ -29,7 +29,7 @@ class AppButtonStyles {
   );
 
   // Filter Chain Button
-  static BoxDecoration filterChainButton(bool isSelected) => BoxDecoration(
+  static BoxDecoration filterChainBox(bool isSelected) => BoxDecoration(
     color: isSelected 
       ? AppTheme.primaryColor.withOpacity(0.3) 
       : AppTheme.grey100.withOpacity(0.1),
@@ -42,7 +42,7 @@ class AppButtonStyles {
   );
 
   // Filter Chain Green Button (for Original)
-  static BoxDecoration filterChainGreenButton(bool isSelected) => BoxDecoration(
+  static BoxDecoration filterChainGreenBox(bool isSelected) => BoxDecoration(
     color: isSelected 
       ? AppTheme.successColor.withOpacity(0.2) 
       : AppTheme.grey100.withOpacity(0.1),

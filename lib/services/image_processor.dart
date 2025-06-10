@@ -66,34 +66,33 @@ class IsolateImageProcessor {
 
   // main methodfor filter
   static Future<Image?> applyFilter(File imageFile, int filterIndex, {double intensity = 1.0}) async {
-    try {
-      // start isolate
-      if (!_isIsolateReady) {
-        await initializeIsolate();
-      }
-
-      // no filter
-      if (filterIndex == 0) {
-        return Image.file(imageFile);
-      }
-
-      // temp output file
-      final tempDir = await getTemporaryDirectory();
-      final outputPath = '${tempDir.path}/filtered_${DateTime.now().millisecondsSinceEpoch}_${filterIndex}_${intensity.toStringAsFixed(1)}.jpg';
-      
-      final result = await _processImageInIsolate(imageFile.path, outputPath, filterIndex, intensity);
-      
-      if (result.isSuccess && result.outputPath != null) {
-        final outputFile = File(result.outputPath!);
-        if (await outputFile.exists()) {
-          return Image.file(outputFile);
-        }
-      }
-      return null;
-      
-    } catch (e) {
-      return null;
+    
+    // start isolate
+    if (!_isIsolateReady) {
+      await initializeIsolate();
     }
+
+    // no filter
+    if (filterIndex == 0) {
+      return Image.file(imageFile);
+    }
+
+    // temp output file
+    final tempDir = await getTemporaryDirectory();
+    final outputPath = '${tempDir.path}/filtered_${DateTime.now().millisecondsSinceEpoch}_${filterIndex}_${intensity.toStringAsFixed(1)}.jpg';
+    
+    final result = await _processImageInIsolate(imageFile.path, outputPath, filterIndex, intensity);
+    
+    if (result.isSuccess && result.outputPath != null) {
+      final outputFile = File(result.outputPath!);
+      if (await outputFile.exists()) {
+        return Image.file(outputFile);
+      }
+    }
+
+    // failed
+    return null;
+    
   }
 
   // apply filter to memory image
