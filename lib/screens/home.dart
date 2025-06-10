@@ -162,56 +162,58 @@ class _PhotoPickerScreenState extends State<PhotoPickerScreen> {
   void _showImagePreview(GallerySavedImage image) {
     showDialog(
       context: context,
-      builder: (context) => Dialog(
-        backgroundColor: Colors.transparent,
-        child: Stack(
-          children: [
-            Center(
-              child: Container(
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: AppTheme.backgroundColor,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(
-                      width: 300,
-                      height: 300,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(5),
-                        child: Image.file(File(image.thumbnailPath!), fit: BoxFit.cover),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    IconButton(
-                      onPressed: () {
-                        _showDeleteDialog(image);
-                      }, 
-                      
-                      icon: const Icon(Icons.delete, size: 24),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Positioned(
-              top: 0,
-              right: 0,
-              child: GestureDetector(
-                onTap: () => Navigator.pop(context),
+      builder: (context) => GestureDetector(
+        onTap: () => Navigator.pop(context),
+        child: Dialog(
+          backgroundColor: Colors.transparent,
+          child: Stack(
+            children: [
+              Center(
                 child: Container(
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.5),
-                    shape: BoxShape.circle,
+                    color: const Color.fromARGB(255, 255, 255, 255),
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Icon(Icons.close, color: AppTheme.textOnPrimary, size: 20),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(
+                        width: 300,
+                        height: 300,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(5),
+                          child: Image.file(File(image.thumbnailPath!), fit: BoxFit.cover),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      IconButton(
+                        onPressed: () {
+                          _showDeleteDialog(image);
+                        },
+                        icon: const Icon(Icons.delete, size: 24),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+              Positioned(
+                top: 75,
+                right: 0,
+                child: GestureDetector(
+                  onTap: () => Navigator.pop(context),
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.5),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(Icons.close, color: AppTheme.textOnPrimary, size: 20),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
