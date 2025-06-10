@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_filter/providers/home_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:gal/gal.dart';
 import 'package:image_filter/services/image_processor.dart';
@@ -86,47 +87,43 @@ class _PhotoDisplayScreenState extends State<PhotoDisplayScreen>
 
   void _onSavePressed() async {
     final imageDisplayProvider = context.read<ImageDisplayProvider>();
+    final homeProvider = context.read<HomeProvider>();
     
-    try {
-      imageDisplayProvider.setProcessing(true);
-      
-      final currentImage = imageDisplayProvider.filterStates[imageDisplayProvider.currentStateIndex].processedImage;
-      final currentFilterName = FilterLib.getFilterName(imageDisplayProvider.filterStates[imageDisplayProvider.currentStateIndex].filterIndex);
-      
-      final imageProvider = currentImage.image;
-      final imageStream = imageProvider.resolve(ImageConfiguration.empty);
-      final completer = Completer<Uint8List>();
-      
-      imageStream.addListener(ImageStreamListener((ImageInfo info, bool _) async {
-        final byteData = await info.image.toByteData(format: ui.ImageByteFormat.png);
-        if (byteData != null) {
-          completer.complete(byteData.buffer.asUint8List());
-        } else {
-          completer.completeError('Görüntü verisi alınamadı');
-        }
-      }));
-      
-      final bytes = await completer.future;
-      final timestamp = DateTime.now().millisecondsSinceEpoch;
-      final fileName = "filtered_image_$timestamp.png";
-      
-      await Gal.putImageBytes(bytes, name: fileName);
-      await _saveThumbnail(bytes, fileName);
-      await _saveImageMetadata(fileName, currentFilterName, timestamp);
-      
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          AppWidgets.successSnackBar('Fotoğraf galeriye kaydedildi!')
-        );
-        Navigator.pop(context, true);
+    imageDisplayProvider.setProcessing(true);
+    
+    final currentImage = imageDisplayProvider.filterStates[imageDisplayProvider.currentStateIndex].processedImage;
+    final currentFilterName = FilterLib.getFilterName(imageDisplayProvider.filterStates[imageDisplayProvider.currentStateIndex].filterIndex);
+    
+    final imageProvider = currentImage.image;
+    final imageStream = imageProvider.resolve(ImageConfiguration.empty);
+    final completer = Completer<Uint8List>();
+    
+    imageStream.addListener(ImageStreamListener((ImageInfo info, bool _) async {
+      final byteData = await info.image.toByteData(format: ui.ImageByteFormat.png);
+      if (byteData != null) {
+        completer.complete(byteData.buffer.asUint8List());
+      } else {
+        completer.completeError('Görüntü verisi alınamadı');
       }
-    } catch (e) {
-      _showErrorSnackBar('Kaydetme hatası: $e');
-    } finally {
-      if (mounted) {
-        imageDisplayProvider.setProcessing(false);
-      }
+    }));
+    
+    final bytes = await completer.future;
+    final timestamp = DateTime.now().millisecondsSinceEpoch;
+    final fileName = "filtered_image_$timestamp.png";
+    
+    await Gal.putImageBytes(bytes, name: fileName);
+    await _saveThumbnail(bytes, fileName);
+    await _saveImageMetadata(fileName, currentFilterName, timestamp);
+    
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        AppWidgets.successSnackBar('Fotoğraf galeriye kaydedildi!')
+      );
+      Navigator.pop(context, true);
     }
+
+    imageDisplayProvider.setProcessing(false);
+    homeProvider.loadSavedImages();
   }
 
   Future<void> _saveThumbnail(Uint8List imageBytes, String fileName) async {
