@@ -86,7 +86,7 @@ void apply_filter5(const char* input_path, const char* output_path, float intens
     cv::Mat original = image.clone();
     
     // Contrast intensity
-    float contrast = 1.0 + (0.5 * intensity); // 1.0 - 1.5 arası
+    float contrast = 1.0 + (0.5 * intensity);
     cv::Mat contrastKernel = (cv::Mat_<float>(3,3) <<
         contrast, 0.0, 0.0,
         0.0, contrast, 0.0,
@@ -162,8 +162,8 @@ void apply_filter9(const char* input_path, const char* output_path, float intens
     cv::Mat original = image.clone();
     
     // Blur intensity
-    int blurSize = static_cast<int>(5 + (20 * intensity)); // 5-25 arası
-    if (blurSize % 2 == 0) blurSize++; // Tek sayı olması gerekiyor
+    int blurSize = static_cast<int>(5 + (20 * intensity));
+    if (blurSize % 2 == 0) blurSize++;
     
     cv::GaussianBlur(image, image, cv::Size(blurSize, blurSize), 0);
     
@@ -180,8 +180,8 @@ void apply_filter10(const char* input_path, const char* output_path, float inten
     cv::cvtColor(image, gray, cv::COLOR_BGR2GRAY);
     
     // Threshold intensity 
-    double lowThreshold = 50 + (100 * intensity);   // 50-150 arası
-    double highThreshold = 100 + (200 * intensity); // 100-300 arası
+    double lowThreshold = 50 + (100 * intensity);
+    double highThreshold = 100 + (200 * intensity);
     
     cv::Canny(gray, edges, lowThreshold, highThreshold);
     cv::cvtColor(edges, image, cv::COLOR_GRAY2BGR);

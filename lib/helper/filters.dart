@@ -35,8 +35,6 @@ class FilterLib {
       _lib = DynamicLibrary.open('libfilters.so');
     } else if (Platform.isIOS) {
       _lib = DynamicLibrary.process(); 
-    } else {
-      throw UnsupportedError('Unsupported platform');
     }
 
     applyFilter1 = _lib
@@ -92,8 +90,7 @@ class FilterLib {
   void applyFilterByIndex(int index, String inputPath, String outputPath, {double intensity = 1.0}) {
     final inputPathPtr = inputPath.toNativeUtf8();
     final outputPathPtr = outputPath.toNativeUtf8();
-    
-    
+  
     switch (index) {
       case 1:
         applyFilter1(inputPathPtr, outputPathPtr, intensity);

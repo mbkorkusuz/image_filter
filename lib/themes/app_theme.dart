@@ -12,9 +12,7 @@ class AppTheme {
   
   // Gri tonları
   static final Color grey100 = Colors.grey[100]!;
-
   static final Color grey400 = Colors.grey[400]!;
-
   static final Color grey700 = Colors.grey[700]!;
   
   // Text Colors
