@@ -26,7 +26,6 @@ class _FilterPreviewWidgetState extends State<FilterPreviewWidget> {
   @override
   void initState() {
     super.initState();
-    // Build tamamlandıktan sonra çalıştır
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final provider = context.read<FilterPreviewProvider>();
       provider.initializeWithImage(widget.imageFile);
@@ -38,7 +37,6 @@ class _FilterPreviewWidgetState extends State<FilterPreviewWidget> {
   void didUpdateWidget(FilterPreviewWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.imageFile.path != widget.imageFile.path) {
-      // Build tamamlandıktan sonra çalıştır
       WidgetsBinding.instance.addPostFrameCallback((_) {
         final provider = context.read<FilterPreviewProvider>();
         provider.initializeWithImage(widget.imageFile);

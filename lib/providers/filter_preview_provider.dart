@@ -12,13 +12,8 @@ class FilterPreviewProvider extends ChangeNotifier {
   Map<int, Image?> get previewCache => _previewCache;
   Set<int> get loadingPreviews => _loadingPreviews;
 
-  void clearCache() {
-    _previewCache.clear();
-    _loadingPreviews.clear();
-    notifyListeners();
-  }
 
-  void initializeWithImage(File imageFile) {
+  void initializeWithImage(File imageFile){
     _previewCache.clear();
     _loadingPreviews.clear();
     _previewCache[0] = Image.file(imageFile);
@@ -26,11 +21,12 @@ class FilterPreviewProvider extends ChangeNotifier {
 
   Future<void> generatePreviews(File imageFile) async {
     _previewCache[0] = Image.file(imageFile);
-    notifyListeners();
-
+    
+    
     for (int i = 1; i <= FilterLib.totalFilters; i++) {
       generatePreviewForFilter(i, imageFile);
     }
+    notifyListeners();
   }
 
   Future<void> generatePreviewForFilter(int filterIndex, File imageFile) async {
